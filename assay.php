@@ -1,7 +1,8 @@
 <?php include "includes/header.php"; ?>
+<?php include "LogicLayer/UserManager.php"; ?>
         <?php include "includes/navigation.php"; ?>
         <!-- banner -->
-        <link rel="form-style-6" href="css/style.css">
+        <link href="css/button.css" rel="stylesheet" type="text/css" media="all" />
         <div class="banner page-head">
             <div class="logo">
                 <h1><a href="index.php">DEU CURE</a></h1>
@@ -58,75 +59,16 @@
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="form-style-6" style=" background: white;">
+                        <form action="assay.php" method="get">
+                            <input type="hidden" name="assayNum" value="true"/>
+                            <input type="submit"value="Display My Assay Number">
+                        </form>
+                    </div>
+                    <br/>
                     <div class="form-style-6">
                     <h1>Show Assay Result</h1>
                     <form  action="assay2.php" method="post">
-                    <style type="text/css">
-                    .form-style-6{
-                        font: 95% Arial, Helvetica, sans-serif;
-                        max-width: 400px;
-                        margin: 10px auto;
-                        padding: 16px;
-                        background: #F7F7F7;
-                    }
-                    .form-style-6 h1{
-                        background: #37b7e5;
-                        padding: 20px 0;
-                        font-size: 140%;
-                        font-weight: 300;
-                        text-align: center;
-                        color: #fff;
-                        margin: -16px -16px 16px -16px;
-                    }
-                    .form-style-6 input[type="text"],
-                    .form-style-6 textarea,
-                    .form-style-6 select 
-                    {
-                        -webkit-transition: all 0.30s ease-in-out;
-                        -moz-transition: all 0.30s ease-in-out;
-                        -ms-transition: all 0.30s ease-in-out;
-                        -o-transition: all 0.30s ease-in-out;
-                        outline: none;
-                        box-sizing: border-box;
-                        -webkit-box-sizing: border-box;
-                        -moz-box-sizing: border-box;
-                        width: 100%;
-                        background: #fff;
-                        margin-bottom: 4%;
-                        border: 1px solid #ccc;
-                        padding: 3%;
-                        color: #666;
-                        font: 95% Arial, Helvetica, sans-serif;
-                    }
-/*
-                    .form-style-6 input[type="text"]:focus,
-
-                    {
-                        box-shadow: 0 0 5px #43D1AF;
-                        padding: 3%;
-                        border: 1px solid #43D1AF;
-                    }
-*/
-
-                    .form-style-6 input[type="submit"],
-                    .form-style-6 input[type="button"]{
-                        box-sizing: border-box;
-                        -webkit-box-sizing: border-box;
-                        -moz-box-sizing: border-box;
-                        width: 100%;
-                        padding: 3%;
-                        background: #37b7e5;
-                        border-bottom: 2px solid #30C29E;
-                        border-top-style: none;
-                        border-right-style: none;
-                        border-left-style: none;    
-                        color: #fff;
-                    }
-                    .form-style-6 input[type="submit"]:hover,
-                    .form-style-6 input[type="button"]:hover{
-                        background: #2EBC99;
-                    }
-                    </style>
                     <input type="text" name="assayNumber" placeholder="Assay Number" />
                     <input type="submit" value="Show" />
                     </form>
@@ -200,4 +142,41 @@
                 <?php
                 }
                 ?>
+                <?php
+                     if(isset($_GET['assayNum'])){
+                         ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="container">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>TC</th>
+                                        <th>Name</th>
+                                        <th>Surname</th>
+                                        <th>Assay Numbers</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $assays = UserManager::getAssayNumbers($_SESSION['tc']);
+                                for($i = 0; $i < count($assays); $i++) { 
+                                    echo "<tr>";
+                                        echo "<td>{$_SESSION['tc']}</td>";
+                                        echo "<td>{$_SESSION['firstName']}</td>";
+                                        echo "<td>{$_SESSION['surName']}</td>";
+                                        echo "<td>{$assays[i]->tc}</td>";
+                                    echo "</tr>";
+                                    }
+                                        ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                         
+                     }
+                ?>     
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <?php include "includes/footer.php"; ?>

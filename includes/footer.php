@@ -5,7 +5,6 @@
             </div>
         </div>
         <!-- Web services scripsts -->
-        <?php include "webservices.php"; ?>
         <!-- /-->
         
         <script src="js/bootstrap.js"></script>

@@ -1,5 +1,6 @@
 <?php
 include "User.php";
+include "Assay.php";
 
 class UserManager {
     
@@ -115,6 +116,19 @@ class UserManager {
         if($delete_query)
             return true;
         return false;
+    }
+    
+    public static function getAssayNumbers($tc){
+        global $connection;
+        $query = "SELECT * FROM assays WHERE tc = {$tc}";
+        $select_assays_query = mysqli_query($connection, $query);
+        $allAssays = array();
+        while($row = mysqli_fetch_assoc($select_assays_query)){
+            $assay = new Assay($row['tc'], $row['assayNumber']);
+            array_push($allAssays,$assay);
+        }
+        
+        return $allAssays;
     }
 }
 ?>
